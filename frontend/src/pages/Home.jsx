@@ -51,7 +51,7 @@ const Home = () => {
     if (!title) return;
 
     const response = await axios.post(
-      "http://localhost:3000/api/chat",
+      "https://gpt-clone-x02c.onrender.com/api/chat",
       {
         title,
       },
@@ -61,18 +61,20 @@ const Home = () => {
     );
     getMessages(response.data.chat._id);
     dispatch(startNewChat(response.data.chat));
-    setSidebarOpen(false); 
+    setSidebarOpen(false);
   };
 
   // Ensure at least one chat exists initially
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/chat", { withCredentials: true })
+      .get("https://gpt-clone-x02c.onrender.com/api/chat", {
+        withCredentials: true,
+      })
       .then((response) => {
         dispatch(setChats(response.data.chats.reverse()));
       });
 
-    const tempSocket = io("http://localhost:3000", {
+    const tempSocket = io("https://gpt-clone-x02c.onrender.com", {
       withCredentials: true,
     });
 
@@ -127,7 +129,7 @@ const Home = () => {
 
   const getMessages = async (chatId) => {
     const response = await axios.get(
-      `http://localhost:3000/api/chat/messages/${chatId}`,
+      `https://gpt-clone-x02c.onrender.com/api/chat/messages/${chatId}`,
       { withCredentials: true }
     );
 
